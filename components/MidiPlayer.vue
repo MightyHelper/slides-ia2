@@ -2,7 +2,7 @@
 <template>
     <div class="midi-player-container" :style="{ height: containerHeight }">
       <div class="controls">
-        <button @click="togglePlay">{{ transport.isPlaying ? 'Pause' : 'Play' }}</button>
+        <button @click="togglePlay">{{ state.transport.isPlaying ? 'Pause' : 'Play' }}</button>
         <input type="range" v-model="playbackPosition" min="0" max="1" step="0.01" class="seek-slider">
         <select v-model="selectedMidiOutput">
           <option value="web-synth">Web Synth</option>
@@ -17,7 +17,7 @@
   </template>
   
   <script setup>
-  import { ref, onMounted, watch, computed, onBeforeUnmount } from 'vue'
+  import { ref, onMounted, reactive, watch, computed, onBeforeUnmount } from 'vue'
   import { WebMidi } from 'webmidi'
   import { MidiTransport } from '/lib/MidiTransport'
   import { PianoRollRenderer } from '/lib/PianoRollRenderer'
@@ -42,10 +42,12 @@
   const midiOutputs = ref([])
   const selectedMidiOutput = ref('web-synth')
   const isRecording = ref(false)
-  const playbackPosition = ref(0)
-  
-  let transport = new MidiTransport()
-  let pianoRoll = null
+  const playbackPosition = ref(0);
+
+  const state = reactive({
+    transport: new MidiTransport(),
+    pianoRoll: null
+  })
   
   // Setup WebMidi and load MIDI file
   onMounted(async () => {
@@ -60,7 +62,7 @@
   })
   
   onBeforeUnmount(() => {
-    transport.dispose()
+    state.transport.dispose()
   })
   
   async function setupWebMidi() {
@@ -73,46 +75,51 @@
   }
   
   async function loadMidiFile() {
-    await transport.loadMidi(`/${props.midiPath}`)
+    await state.transport.loadMidi(`/${props.midiPath}`)
   }
   
   function setupPianoRoll() {
-    pianoRoll = new PianoRollRenderer(canvas.value, transport)
-    pianoRoll.setNoteColor('white')
-    pianoRoll.setBackgroundColor('black')
+    console.log("Pref:, ", state.pianoRoll);
+    
+    state.pianoRoll = new PianoRollRenderer(canvas.value, state.transport)
+    state.pianoRoll.setNoteColor('white')
+    state.pianoRoll.setBackgroundColor('black')
+    state.transport.output = selectedMidiOutput.value
   }
   
   function setupTransportListeners() {
-    transport.onUpdate((position) => {
+    state.transport.onUpdate((position) => {
       playbackPosition.value = position
-      transport.position = position
-      pianoRoll.draw()
+      state.transport.position = position
+      state.pianoRoll.draw()
+      console.log("transport update");
+      
     })
   }
   
   function handleWheel(event) {
     const delta = event.deltaY * -0.001
-    pianoRoll.zoom(delta)
+    state.pianoRoll.zoom(delta)
   }
   
   async function togglePlay() {
-    if (transport.isPlaying) {
-      await transport.pause()
+    if (state.transport.isPlaying) {
+      await state.transport.pause()
     } else {
-      await transport.play(props.startTime)
+      state.pianoRoll.setupCanvas()
+      await state.transport.play(props.startTime)
     }
   }
   
   watch(playbackPosition, (pos) => {
-    if (transport.isPlaying) {
-      transport.seek(pos)
-    }
+    state.transport.seek(pos)
+    state.pianoRoll.draw()
   })
   watch(selectedMidiOutput, (outputId) => {
-    transport.output = outputId
-    transport.WebMidi = WebMidi
+    state.transport.output = outputId
+    state.transport.outputChannel = WebMidi.getOutputById('output-2').channels[1]
+    state.transport.WebMidi = WebMidi
   })
-  transport.output = selectedMidiOutput.value
   
   // Recording functionality remains similar to previous implementation
   // ...
