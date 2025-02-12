@@ -3,7 +3,7 @@
     <div class="midi-player-container" :style="{ height: containerHeight }">
       <div class="controls">
         <button @click="togglePlay">{{ state.transport.isPlaying ? 'Pause' : 'Play' }}</button>
-        <input type="range" v-model="playbackPosition" min="0" max="1" step="0.01" class="seek-slider">
+        <input type="range" v-model="playbackPosition" min="0" max="1" step="0.0001" class="seek-slider">
         <select v-model="selectedMidiOutput">
           <option value="web-synth">Web Synth</option>
           <option v-for="output in midiOutputs" :key="output.id" :value="output.id">
