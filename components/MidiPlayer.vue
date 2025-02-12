@@ -47,6 +47,8 @@ let canvasCtx = null
 let animationFrame = null
 let mediaRecorder = null
 let recordedChunks = []
+const synth = new Tone.PolySynth().toDestination()
+let scheduledEvents = []
 
 // Canvas dimensions
 const canvasWidth = ref(0)
@@ -155,9 +157,6 @@ async function startRecording() {
 }
 
 
-const synth = new Tone.PolySynth().toDestination()
-let scheduledEvents = []
-
 async function togglePlay() {
   if (isPlaying.value) {
     Tone.Transport.pause()
@@ -173,7 +172,7 @@ function scheduleNotes() {
   // Clear existing scheduled notes
   scheduledEvents.forEach(event => event.clear())
   scheduledEvents = []
-
+  const output = WebMidi.getOutputById(selectedMidiOutput.value)
   midiData.tracks.forEach(track => {
     track.notes.forEach(note => {
       const event = Tone.Transport.schedule(time => {
@@ -188,7 +187,6 @@ function scheduleNotes() {
         }
         // Send to MIDI device
         if (selectedMidiOutput.value !== 'web-synth') {
-          const output = WebMidi.getOutputById(selectedMidiOutput.value)
           output.playNote(note.midi, {
             time: time,
             duration: note.duration,
@@ -206,7 +204,7 @@ function stopPlayback() {
   Tone.Transport.cancel()
   isPlaying.value = false
   playbackPosition.value = 0
-  scheduledEvents.forEach(event => event.clear())
+  scheduledEvents.forEach(event => event.clear?.())
   scheduledEvents = []
 }
 

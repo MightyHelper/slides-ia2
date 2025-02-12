@@ -22,21 +22,19 @@ setup:
   import 'setup/main.js'
 ---
 
----
-layout: center
----
 
-<!-- Your slide content -->
+<!-- Your slide content
 
 <!-- <MidiPlayer midi-path="saved_outputs/v2/v2-best.mid" /> -->
-<MidiPlayer midi-path="saved_outputs/v3/v3-try3-more-training.mid" />
+<!-- <MidiPlayer midi-path="saved_outputs/v3/v3-try3-more-training.mid" /> -->
 
-# Hi
+<!-- # Hi -->
 
 <!-- For half size -->
 <!-- <MidiPlayer midi-path="your-midi-file.mid" height="35vh" /> -->
----
----
+<!-- --- -->
+<!-- --- -->
+
 
 # PianoGen: Generacion de Musica de Piano con IA
 Aplicando Transformers.
@@ -109,6 +107,24 @@ title: "Resumen: MIDI"
 
 ---
 ---
+## Ejemplo Maestro
+
+<MidiPlayer midi-path="saved_outputs/maestro_samples/MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_01_R1_2015_wav--5.midi" />
+
+---
+---
+## Ejemplo custom
+
+<MidiPlayer midi-path="saved_outputs/custom_samples/midi_undefined_1715486929603.mid" />
+---
+---
+
+## Ejemplo JSB
+
+<MidiPlayer midi-path="saved_outputs/jsb_samples/000000.mid" />
+---
+---
+
 ## Comparación de tamaño de datasets
 
 <!-- <center> -->
@@ -148,6 +164,7 @@ Cómo tokenizamos musica?
 <v-clicks>
 
 - MidiTok (REMI) 
+![](https://miditok.readthedocs.io/en/latest/_images/remi.png)
 <!-- Show sample tokens -->
 - CrayKH (Texto)
 <!-- Show sample text -->
