@@ -1,0 +1,19 @@
+{
+  "name": "ai-2",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^51.1.0",
+    "@slidev/theme-default": "latest",
+    "@slidev/theme-seriph": "latest",
+    "vue": "^3.5.13",
+    "tone": "^14.7.77",
+    "webmidi": "^3.0.0",
+    "@tonejs/midi": "^2.0.28"
+  }
+}
