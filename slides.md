@@ -52,15 +52,9 @@ The last comment block of each slide will be treated as slide notes. It will be 
 
 ---
 ---
+# Contenidos
 <Toc maxDepth=1 />
 <!-- TODO: Split image layout -->
-
----
----
-
-# Qué es una canción?
-
-<!-- TODO: piano roll image -->
 
 ---
 transition: fade-out
@@ -163,7 +157,6 @@ Cómo tokenizamos musica?
 
 ---
 ---
-# Tokenización
 <v-clicks depth=2>
 
 - JSB
@@ -230,20 +223,21 @@ graph TD;
 ---
 
 # V2
-
-<v-clicks>
-
 <!-- Explain the ehnanced tokenization. Why BPE is not good. -->
 <!-- Show result after 30 minutes of training -->
 <!-- saved_outputs/v2/v2-best.mid -->
 
+<v-clicks>
+
 - Mismo modelo que V1
 - Tokenizador sin BPE
 - Resultados con 30 minutos de entrenamiento; loss = 0.01
-- <MidiPlayer midi-path="saved_outputs/v2/v2-best.mid" height=35vh />
 
 </v-clicks>
 
+<v-switch unmount>
+<template #1> <MidiPlayer midi-path="saved_outputs/v2/v2-best.mid" height=35vh /> </template>
+</v-switch>
 ---
 ---
 # V3
@@ -259,7 +253,7 @@ graph TD;
 - Pre-Chunking para batching
 - Overfitting y contaminación del dataset!
 </v-clicks>
-<v-switch unmount=true>
+<v-switch unmount>
   <template #1 > <MidiPlayer midi-path="saved_outputs/v3/v3-try-1.mid" height=30vh /> </template>
   <template #2 > <MidiPlayer midi-path="saved_outputs/v3/v3-try-2-more-train.mid" height=30vh /> </template>
   <template #3 > <MidiPlayer midi-path="saved_outputs/v3/v3-try3-more-training.mid" height=30vh /> </template>
@@ -276,8 +270,8 @@ graph TD;
 - Experimentando con diferentes datasets
 - Resumiendo muchas veces de un checkpoint anterior
 - Explorando augmentacion $\leftarrow$ Mas contaminación!
-<v-switch unmount=true>
-  <template #1 > <MidiPlayer midi-path="saved_outputs/v4/01-lahk/v4-lakh.mid" height=30vh /> </template>
+<v-switch unmount>
+  <template #1 > <MidiPlayer midi-path="saved_outputs/v4/01-lahk/v4-lahk.mid" height=30vh /> </template>
   <template #2 > <MidiPlayer midi-path="saved_outputs/v4/02-manual/v4-1-manual.mid" height=30vh /> </template>
   <template #3 > <MidiPlayer midi-path="saved_outputs/v4/02-manual/v4-1-manual-1.mid" height=30vh /> </template>
   <template #4 > <MidiPlayer midi-path="saved_outputs/v4/02-manual/v4-1-manual-2.mid" height=30vh /> </template>
@@ -508,6 +502,92 @@ graph LR;
 
 <!-- Show results -->
 
+<style>
+.slidev-table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  font-size: 10px;
+  table-layout: fixed;
+  width: 100%;
+}
+.slidev-table th {
+  background: #f5f5f555;
+  padding: 4px 2px;
+  border-bottom: 2px solid #ddd;
+  white-space: nowrap;
+  text-align: center;
+}
+.slidev-table td {
+  padding: 3px 2px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+.link-cell {
+  width: 40px; /* Fixed width for link column */
+}
+.footnote {
+  font-size: 8px;
+  color: #666;
+  margin-top: 8px;
+}
+</style>
+
+<table class="slidev-table">
+<thead><tr>
+<th>Modelo</th>
+<th>Tokenizador</th>
+<th>Dataset</th>
+<th>Figura</th>
+<th>Contexto</th>
+<th>#Cabezas</th>
+<th>Embed</th>
+<th>#Capas</th>
+<th>Params(M)</th>
+<th>Tiempo(s)</th>
+<th>Mem(MB)</th>
+<th>Perplejidad</th>
+<th>NLLLoss</th>
+</tr></thead>
+<tbody>
+<tr><td>gpt2</td><td>remi</td><td>maestro</td><td class="link-cell"><a href="slide-mzhwcl7o.html">📊</a></td><td>512</td><td>8</td><td>512</td><td>6</td><td>19.2</td><td>4280</td><td>nan</td><td>3.6813</td><td style="background: #f0f0f044; color: rgb(255,0,0)">1.3033</td></tr>
+<tr><td>gpt2</td><td>remi</td><td>maestro</td><td class="link-cell"><a href="slide-dxkw4nq5.html">📊</a></td><td>512</td><td>8</td><td>1024</td><td>8</td><td>101.4</td><td>5831</td><td>6700</td><td>3.6331</td><td style="background: #f0f0f044; color: rgb(252,2,0)">1.2901</td></tr>
+<tr><td>gpt2</td><td>remi</td><td>maestro</td><td class="link-cell"><a href="slide-euwsqg6v.html">📊</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>202.7</td><td>13813</td><td>7299</td><td>3.5618</td><td style="background: #f0f0f044; color: rgb(247,7,0)">1.2703</td></tr>
+<tr><td>gpt2</td><td>remi</td><td>jsb</td><td class="link-cell"><a href="slide-m1z5nhpx.html">📊</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>202.7</td><td>1431</td><td>7399</td><td>2.7728</td><td style="background: #f0f0f044; color: rgb(192,62,0)">1.0199</td></tr>
+<tr><td>gpt2</td><td>remi</td><td>jsb</td><td class="link-cell"><a href="slide-ede3at2o.html">📊</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>202.7</td><td>4322</td><td>7400</td><td>2.1106</td><td style="background: #f0f0f044; color: rgb(131,123,0)">0.7470</td></tr>
+<tr><td>gpt2</td><td>craykh</td><td>jsb</td><td class="link-cell"><a href="slide-vc6pefsh.html">📊</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>202.7</td><td>2971</td><td>7397</td><td>1.1635</td><td style="background: #f0f0f044; color: rgb(0,255,0)">0.1514</td></tr>
+<tr><td>gpt2</td><td>craykh</td><td>jsb_fast</td><td class="link-cell"><a href="slide-9j942gzy.html">📊</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>202.7</td><td>1924</td><td>7401</td><td>1.5502</td><td style="background: #f0f0f044; color: rgb(63,191,0)">0.4384</td></tr>
+<tr><td>mt</td><td>craykh</td><td>jsb_fast</td><td class="link-cell"><a href="slide-505hiyob.html">📊</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>25.3</td><td>702</td><td>1985</td><td>1.4409</td><td style="background: #f0f0f044; color: rgb(47,207,0)">0.3652</td></tr>
+<tr><td>mt</td><td>craykh</td><td>jsb_fast</td><td class="link-cell"><a href="slide-stc88ynm.html">📊</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>25.3</td><td>766</td><td>1985</td><td>1.4202</td><td style="background: #f0f0f044; color: rgb(44,210,0)">0.3508</td></tr>
+<tr><td>mt</td><td>craykh</td><td>jsb+custom</td><td class="link-cell"><a href="slide-nvap2o44.html">📊</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>25.3</td><td>2385</td><td>nan</td><td>1.2668</td><td style="background: #f0f0f044; color: rgb(18,236,0)">0.2365</td></tr>
+<tr><td>mt</td><td>craykh</td><td>jsb+custom</td><td class="link-cell"><a href="slide-u9qlrn05.html">📊</a></td><td>2024</td><td>16</td><td>1024</td><td>16</td><td>25.3</td><td>6564</td><td>5961</td><td>1.2218</td><td style="background: #f0f0f044; color: rgb(10,244,0)">0.2003</td></tr>
+<tr><td>mt</td><td>jsb</td><td>jsb_fast</td><td class="link-cell"><a href="slide-tnpgvr8q.html">📊</a></td><td>2024</td><td>16</td><td>1024</td><td>16</td><td>25.3</td><td>1747</td><td>5960</td><td>1.2671</td><td style="background: #f0f0f044; color: rgb(18,236,0)">0.2368</td></tr>
+<tr><td>gpt2</td><td>jsb</td><td>jsb_fast</td><td class="link-cell"><a href="slide-1cafolb4.html">📊</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>202.6</td><td>2686</td><td>7396</td><td>1.4703</td><td style="background: #f0f0f044; color: rgb(51,203,0)">0.3854</td></tr>
+<tr><td>gpt2</td><td>jsb</td><td>jsb_fast</td><td class="link-cell"><a href="slide-l1wwlloh.html">📊</a></td><td>512</td><td>8</td><td>512</td><td>5</td><td>16.0</td><td>467</td><td>7026</td><td>1.5544</td><td style="background: #f0f0f044; color: rgb(64,190,0)">0.4411</td></tr>
+<tr><td>mt</td><td>jsb</td><td>jsb_fast</td><td class="link-cell"><a href="slide-yqtq5a2z.html">📊</a></td><td>512</td><td>8</td><td>512</td><td>5</td><td>25.3</td><td>886</td><td>5508</td><td>1.4757</td><td style="background: #f0f0f044; color: rgb(52,202,0)">0.3891</td></tr>
+<tr>
+<td>mt†</td>
+<td>jsb</td>
+<td>jsb_fast</td>
+<td class="link-cell"><a href="slide-huang.html">📖</a></td>
+<td>512</td>
+<td>8</td>
+<td>512</td>
+<td>5</td>
+<td>??</td>
+<td>??</td>
+<td>??</td>
+<td>1.4290</td>
+<td style="background: #f0f0f044; color: rgb(45,209,0)">0.357</td>
+</tr>
+</tbody></table>
+
+<div class="footnote">
+† Valores de @huang2018music (Relative Transformer Baseline)
+
+</div>
+
+
+
 <!-- Piano renderer:
 
 Take a midi file, load it, show a piano roll.
@@ -518,11 +598,8 @@ Maybe also show tokenizations?
 
  -->
 
----
----
+<!--   ---
+  layout: iframe
+  url: "https://wandb.ai/federicowilliamson/pianogen/workspace/"
+  --- -->
 
-# Learn More
-
-[Documentation](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/resources/showcases)
-
-<PoweredBySlidev mt-10 />

@@ -21,7 +21,8 @@
   import { WebMidi } from 'webmidi'
   import { MidiTransport } from '/lib/MidiTransport'
   import { PianoRollRenderer } from '/lib/PianoRollRenderer'
-  
+  import { onSlideEnter, onSlideLeave, useIsSlideActive } from '@slidev/client'
+
   const props = defineProps({
     midiPath: {
       type: String,
@@ -48,9 +49,7 @@
     transport: new MidiTransport(),
     pianoRoll: null
   })
-  
-  // Setup WebMidi and load MIDI file
-  onMounted(async () => {
+  async function Mounted () {
     console.log("Setup webmidi");
     
     await setupWebMidi()
@@ -59,7 +58,17 @@
     await loadMidiFile()
     setupPianoRoll()
     setupTransportListeners()
+  }
+  onSlideEnter(async ()=>{
+    console.log("Slide enter");
+    
+    await Mounted()
+    state.pianoRoll.setupCanvas()
+    state.pianoRoll.draw()
   })
+
+  // Setup WebMidi and load MIDI file
+  onMounted(Mounted)
   
   onBeforeUnmount(() => {
     state.transport.dispose()
@@ -85,6 +94,7 @@
     state.pianoRoll.setNoteColor('white')
     state.pianoRoll.setBackgroundColor('black')
     state.transport.output = selectedMidiOutput.value
+    state.pianoRoll.setTitle(props.midiPath)
   }
   
   function setupTransportListeners() {
