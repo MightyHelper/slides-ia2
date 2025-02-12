@@ -18,8 +18,10 @@ drawings:
 transition: slide-left
 mdc: true
 setup:
-  import MidiPlayer from 'components/MidiPlayer.vue'
-  import 'setup/main.js'
+  import ReactiveMidiPlayer from 'components/ReactiveMidiPlayer.vue';
+  import MidiPlayer from 'components/MidiPlayer.vue';
+  import LinkButton from 'components/LinkButton.vue';
+  import 'setup/main.js';
 ---
 
 
@@ -95,19 +97,19 @@ title: "Resumen: MIDI"
 ---
 ## Ejemplo Maestro
 
-<MidiPlayer midi-path="saved_outputs/maestro_samples/MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_01_R1_2015_wav--5.midi" />
+<MidiPlayer midi-path="/saved_outputs/maestro_samples/MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_01_R1_2015_wav--5.midi" />
 
 ---
 ---
 ## Ejemplo custom
 
-<MidiPlayer midi-path="saved_outputs/custom_samples/midi_undefined_1715486929603.mid" />
+<MidiPlayer midi-path="/saved_outputs/custom_samples/midi_undefined_1715486929603.mid" />
 ---
 ---
 
 ## Ejemplo JSB
 
-<MidiPlayer midi-path="saved_outputs/jsb_samples/000000.mid" />
+<MidiPlayer midi-path="/saved_outputs/jsb_samples/000000.mid" />
 ---
 ---
 
@@ -171,7 +173,7 @@ layout: two-cols-header
 
 ---
 
-# Primeros experimentos
+# V1: Primeros experimentos
 <!-- TODO: Explain TFModel and it's shortcomings -->
 <!-- Explain that training did not give good results. No need to listen - show empty piano roll -->
 ::left::
@@ -222,7 +224,7 @@ graph TD;
 ---
 ---
 
-# V2
+# V2: Mejor Configuración de REMI
 <!-- Explain the ehnanced tokenization. Why BPE is not good. -->
 <!-- Show result after 30 minutes of training -->
 <!-- saved_outputs/v2/v2-best.mid -->
@@ -236,11 +238,12 @@ graph TD;
 </v-clicks>
 
 <v-switch unmount>
-<template #1> <MidiPlayer midi-path="saved_outputs/v2/v2-best.mid" height=35vh /> </template>
+<template #1> <MidiPlayer midi-path="/saved_outputs/v2/v2-best.mid" height=35vh /> </template>
 </v-switch>
 ---
 ---
-# V3
+
+# V3: GPT-2
 
 <!-- Explain why experiment with GPT-2 -->
 <!-- Talk about HF Trainer API -->
@@ -254,38 +257,43 @@ graph TD;
 - Overfitting y contaminación del dataset!
 </v-clicks>
 <v-switch unmount>
-  <template #1 > <MidiPlayer midi-path="saved_outputs/v3/v3-try-1.mid" height=30vh /> </template>
-  <template #2 > <MidiPlayer midi-path="saved_outputs/v3/v3-try-2-more-train.mid" height=30vh /> </template>
-  <template #3 > <MidiPlayer midi-path="saved_outputs/v3/v3-try3-more-training.mid" height=30vh /> </template>
+  <template #1 > <MidiPlayer midi-path="/saved_outputs/v3/v3-try-1.mid" height=30vh /> </template>
+  <template #2 > <MidiPlayer midi-path="/saved_outputs/v3/v3-try-2-more-train.mid" height=30vh /> </template>
+  <template #3 > <MidiPlayer midi-path="/saved_outputs/v3/v3-try3-more-training.mid" height=30vh /> </template>
 </v-switch>
 ---
 ---
 
-# V4
+# V4: Más Datos y augmentación
 <!-- Experimented with different datasets, multiple training resumes from checkpoints -->
 
 <!-- Show some of the results -->
+
+<v-clicks>
 
 - Denuevo con GPT-2
 - Experimentando con diferentes datasets
 - Resumiendo muchas veces de un checkpoint anterior
 - Explorando augmentacion $\leftarrow$ Mas contaminación!
+
+</v-clicks>
+
 <v-switch unmount>
-  <template #1 > <MidiPlayer midi-path="saved_outputs/v4/01-lahk/v4-lahk.mid" height=30vh /> </template>
-  <template #2 > <MidiPlayer midi-path="saved_outputs/v4/02-manual/v4-1-manual.mid" height=30vh /> </template>
-  <template #3 > <MidiPlayer midi-path="saved_outputs/v4/02-manual/v4-1-manual-1.mid" height=30vh /> </template>
-  <template #4 > <MidiPlayer midi-path="saved_outputs/v4/02-manual/v4-1-manual-2.mid" height=30vh /> </template>
-  <template #5 > <MidiPlayer midi-path="saved_outputs/v4/02-manual/v4-1-manual-3.mid" height=30vh /> </template>
-  <template #6 > <MidiPlayer midi-path="saved_outputs/v4/02-manual/v4-1-manual-b-1.mid" height=30vh /> </template>
-  <template #7 > <MidiPlayer midi-path="saved_outputs/v4/02-manual/v4-1-manual-b-2.mid" height=30vh /> </template>
-  <template #8 > <MidiPlayer midi-path="saved_outputs/v4/02-manual/v4-1-manual-b-3.mid" height=30vh /> </template>
-  <template #9 > <MidiPlayer midi-path="saved_outputs/v4/02-manual/v4-1-manual-b-4.mid" height=30vh /> </template>
-  <template #10 > <MidiPlayer midi-path="saved_outputs/v4/03-larger/1-of-1.mid" height=30vh /> </template>
-  <template #11 > <MidiPlayer midi-path="saved_outputs/v4/03-larger/1-of-2.mid" height=30vh /> </template>
-  <template #12 > <MidiPlayer midi-path="saved_outputs/v4/03-larger/1-of-3.mid" height=30vh /> </template>
-  <template #13 > <MidiPlayer midi-path="saved_outputs/v4/03-larger/1-of-4.mid" height=30vh /> </template>
-  <template #14 > <MidiPlayer midi-path="saved_outputs/v4/03-larger/1-of-5.mid" height=30vh /> </template>
-  <template #15 > <MidiPlayer midi-path="saved_outputs/v4/04-slow-train/generated.mid" height=30vh /> </template>
+  <template #1 > <MidiPlayer midi-path="/saved_outputs/v4/01-lahk/v4-lahk.mid" height=30vh /> </template>
+  <template #2 > <MidiPlayer midi-path="/saved_outputs/v4/02-manual/v4-1-manual.mid" height=30vh /> </template>
+  <template #3 > <MidiPlayer midi-path="/saved_outputs/v4/02-manual/v4-1-manual-1.mid" height=30vh /> </template>
+  <template #4 > <MidiPlayer midi-path="/saved_outputs/v4/02-manual/v4-1-manual-2.mid" height=30vh /> </template>
+  <template #5 > <MidiPlayer midi-path="/saved_outputs/v4/02-manual/v4-1-manual-3.mid" height=30vh /> </template>
+  <template #6 > <MidiPlayer midi-path="/saved_outputs/v4/02-manual/v4-1-manual-b-1.mid" height=30vh /> </template>
+  <template #7 > <MidiPlayer midi-path="/saved_outputs/v4/02-manual/v4-1-manual-b-2.mid" height=30vh /> </template>
+  <template #8 > <MidiPlayer midi-path="/saved_outputs/v4/02-manual/v4-1-manual-b-3.mid" height=30vh /> </template>
+  <template #9 > <MidiPlayer midi-path="/saved_outputs/v4/02-manual/v4-1-manual-b-4.mid" height=30vh /> </template>
+  <template #10 > <MidiPlayer midi-path="/saved_outputs/v4/03-larger/1-of-1.mid" height=30vh /> </template>
+  <template #11 > <MidiPlayer midi-path="/saved_outputs/v4/03-larger/1-of-2.mid" height=30vh /> </template>
+  <template #12 > <MidiPlayer midi-path="/saved_outputs/v4/03-larger/1-of-3.mid" height=30vh /> </template>
+  <template #13 > <MidiPlayer midi-path="/saved_outputs/v4/03-larger/1-of-4.mid" height=30vh /> </template>
+  <template #14 > <MidiPlayer midi-path="/saved_outputs/v4/03-larger/1-of-5.mid" height=30vh /> </template>
+  <template #15 > <MidiPlayer midi-path="/saved_outputs/v4/04-slow-train/generated.mid" height=30vh /> </template>
 </v-switch>
 
 ---
@@ -303,7 +311,7 @@ graph TD;
 
 ---
 ---
-# V5
+# V5: Tokenización Continua
 
 Tomamos los eventos de midi y los traducimos al siguiente formato:
 ```yaml
@@ -405,7 +413,7 @@ graph LR;
 ---
 ---
 
-# V6
+# V6: Tokenización CrayKH
 <v-clicks>
 
 - La complejidad del modelo anterior no funcionó
@@ -421,7 +429,7 @@ graph LR;
 ---
 ---
 
-# V7
+# V7: MusicTransformer & Atención Relativa
 
 <!-- Explain the MusicTransformer architecture -->
 
@@ -502,6 +510,8 @@ graph LR;
 
 <!-- Show results -->
 
+
+
 <style>
 .slidev-table {
   border-collapse: collapse;
@@ -537,7 +547,7 @@ graph LR;
 <th>Modelo</th>
 <th>Tokenizador</th>
 <th>Dataset</th>
-<th>Figura</th>
+<th>Output</th>
 <th>Contexto</th>
 <th>#Cabezas</th>
 <th>Embed</th>
@@ -549,26 +559,26 @@ graph LR;
 <th>NLLLoss</th>
 </tr></thead>
 <tbody>
-<tr><td>gpt2</td><td>remi</td><td>maestro</td><td class="link-cell"><a href="slide-mzhwcl7o.html">📊</a></td><td>512</td><td>8</td><td>512</td><td>6</td><td>19.2</td><td>4280</td><td>nan</td><td>3.6813</td><td style="background: #f0f0f044; color: rgb(255,0,0)">1.3033</td></tr>
-<tr><td>gpt2</td><td>remi</td><td>maestro</td><td class="link-cell"><a href="slide-dxkw4nq5.html">📊</a></td><td>512</td><td>8</td><td>1024</td><td>8</td><td>101.4</td><td>5831</td><td>6700</td><td>3.6331</td><td style="background: #f0f0f044; color: rgb(252,2,0)">1.2901</td></tr>
-<tr><td>gpt2</td><td>remi</td><td>maestro</td><td class="link-cell"><a href="slide-euwsqg6v.html">📊</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>202.7</td><td>13813</td><td>7299</td><td>3.5618</td><td style="background: #f0f0f044; color: rgb(247,7,0)">1.2703</td></tr>
-<tr><td>gpt2</td><td>remi</td><td>jsb</td><td class="link-cell"><a href="slide-m1z5nhpx.html">📊</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>202.7</td><td>1431</td><td>7399</td><td>2.7728</td><td style="background: #f0f0f044; color: rgb(192,62,0)">1.0199</td></tr>
-<tr><td>gpt2</td><td>remi</td><td>jsb</td><td class="link-cell"><a href="slide-ede3at2o.html">📊</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>202.7</td><td>4322</td><td>7400</td><td>2.1106</td><td style="background: #f0f0f044; color: rgb(131,123,0)">0.7470</td></tr>
-<tr><td>gpt2</td><td>craykh</td><td>jsb</td><td class="link-cell"><a href="slide-vc6pefsh.html">📊</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>202.7</td><td>2971</td><td>7397</td><td>1.1635</td><td style="background: #f0f0f044; color: rgb(0,255,0)">0.1514</td></tr>
-<tr><td>gpt2</td><td>craykh</td><td>jsb_fast</td><td class="link-cell"><a href="slide-9j942gzy.html">📊</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>202.7</td><td>1924</td><td>7401</td><td>1.5502</td><td style="background: #f0f0f044; color: rgb(63,191,0)">0.4384</td></tr>
-<tr><td>mt</td><td>craykh</td><td>jsb_fast</td><td class="link-cell"><a href="slide-505hiyob.html">📊</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>25.3</td><td>702</td><td>1985</td><td>1.4409</td><td style="background: #f0f0f044; color: rgb(47,207,0)">0.3652</td></tr>
-<tr><td>mt</td><td>craykh</td><td>jsb_fast</td><td class="link-cell"><a href="slide-stc88ynm.html">📊</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>25.3</td><td>766</td><td>1985</td><td>1.4202</td><td style="background: #f0f0f044; color: rgb(44,210,0)">0.3508</td></tr>
-<tr><td>mt</td><td>craykh</td><td>jsb+custom</td><td class="link-cell"><a href="slide-nvap2o44.html">📊</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>25.3</td><td>2385</td><td>nan</td><td>1.2668</td><td style="background: #f0f0f044; color: rgb(18,236,0)">0.2365</td></tr>
-<tr><td>mt</td><td>craykh</td><td>jsb+custom</td><td class="link-cell"><a href="slide-u9qlrn05.html">📊</a></td><td>2024</td><td>16</td><td>1024</td><td>16</td><td>25.3</td><td>6564</td><td>5961</td><td>1.2218</td><td style="background: #f0f0f044; color: rgb(10,244,0)">0.2003</td></tr>
-<tr><td>mt</td><td>jsb</td><td>jsb_fast</td><td class="link-cell"><a href="slide-tnpgvr8q.html">📊</a></td><td>2024</td><td>16</td><td>1024</td><td>16</td><td>25.3</td><td>1747</td><td>5960</td><td>1.2671</td><td style="background: #f0f0f044; color: rgb(18,236,0)">0.2368</td></tr>
-<tr><td>gpt2</td><td>jsb</td><td>jsb_fast</td><td class="link-cell"><a href="slide-1cafolb4.html">📊</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>202.6</td><td>2686</td><td>7396</td><td>1.4703</td><td style="background: #f0f0f044; color: rgb(51,203,0)">0.3854</td></tr>
-<tr><td>gpt2</td><td>jsb</td><td>jsb_fast</td><td class="link-cell"><a href="slide-l1wwlloh.html">📊</a></td><td>512</td><td>8</td><td>512</td><td>5</td><td>16.0</td><td>467</td><td>7026</td><td>1.5544</td><td style="background: #f0f0f044; color: rgb(64,190,0)">0.4411</td></tr>
-<tr><td>mt</td><td>jsb</td><td>jsb_fast</td><td class="link-cell"><a href="slide-yqtq5a2z.html">📊</a></td><td>512</td><td>8</td><td>512</td><td>5</td><td>25.3</td><td>886</td><td>5508</td><td>1.4757</td><td style="background: #f0f0f044; color: rgb(52,202,0)">0.3891</td></tr>
+<tr><td>gpt2</td><td>remi</td><td>maestro</td><td class="link-cell"><LinkButton query='saved_outputs/nan' slide=24 /><a href='https://wandb.ai/federicowilliamson/pianogen/runs/mzhwcl7o'>📈</a></td><td>512</td><td>8</td><td>512</td><td>6</td><td>19.2</td><td>4280</td><td>nan</td><td>3.6813</td><td style="background: #f0f0f044; color: rgb(255,0,0)">1.3033</td></tr>
+<tr><td>gpt2</td><td>remi</td><td>maestro</td><td class="link-cell"><LinkButton query='saved_outputs/gpt2/remi_nbpe/Train[maestro]_Test[maestro]_Val[maestro].03.02.25.c/sample_output.mid' slide=24 /><a href='https://wandb.ai/federicowilliamson/pianogen/runs/dxkw4nq5'>📈</a></td><td>512</td><td>8</td><td>1024</td><td>8</td><td>101.4</td><td>5831</td><td>6700</td><td>3.6331</td><td style="background: #f0f0f044; color: rgb(252,2,0)">1.2901</td></tr>
+<tr><td>gpt2</td><td>remi</td><td>maestro</td><td class="link-cell"><LinkButton query='saved_outputs/gpt2/remi_nbpe/Train[maestro]_Test[maestro]_Val[maestro].04.02.25/sample_output.mid' slide=24 /><a href='https://wandb.ai/federicowilliamson/pianogen/runs/euwsqg6v'>📈</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>202.7</td><td>13813</td><td>7299</td><td>3.5618</td><td style="background: #f0f0f044; color: rgb(247,7,0)">1.2703</td></tr>
+<tr><td>gpt2</td><td>remi</td><td>jsb</td><td class="link-cell"><LinkButton query='saved_outputs/gpt2/remi_nbpe/Train[jsb_chorales]_Test[jsb_chorales]_Val[jsb_chorales].05.02.25.b/sample_output.mid' slide=24 /><a href='https://wandb.ai/federicowilliamson/pianogen/runs/m1z5nhpx'>📈</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>202.7</td><td>1431</td><td>7399</td><td>2.7728</td><td style="background: #f0f0f044; color: rgb(192,62,0)">1.0199</td></tr>
+<tr><td>gpt2</td><td>remi</td><td>jsb</td><td class="link-cell"><LinkButton query='saved_outputs/gpt2/remi_nbpe/Train[jsb_chorales]_Test[jsb_chorales]_Val[jsb_chorales].05.02.25.c/sample_output.mid' slide=24 /><a href='https://wandb.ai/federicowilliamson/pianogen/runs/ede3at2o'>📈</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>202.7</td><td>4322</td><td>7400</td><td>2.1106</td><td style="background: #f0f0f044; color: rgb(131,123,0)">0.7470</td></tr>
+<tr><td>gpt2</td><td>craykh</td><td>jsb</td><td class="link-cell"><LinkButton query='saved_outputs/gpt2/craykh_nbpe/Train[jsb_chorales]_Test[jsb_chorales]_Val[jsb_chorales]/sample_output.mid' slide=24 /><a href='https://wandb.ai/federicowilliamson/pianogen/runs/vc6pefsh'>📈</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>202.7</td><td>2971</td><td>7397</td><td>1.1635</td><td style="background: #f0f0f044; color: rgb(0,255,0)">0.1514</td></tr>
+<tr><td>gpt2</td><td>craykh</td><td>jsb_fast</td><td class="link-cell"><LinkButton query='saved_outputs/gpt2/craykh_nbpe/Train[jsb_chorales_fast]_Test[jsb_chorales_fast]_Val[jsb_chorales_fast]/sample_output.mid' slide=24 /><a href='https://wandb.ai/federicowilliamson/pianogen/runs/9j942gzy'>📈</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>202.7</td><td>1924</td><td>7401</td><td>1.5502</td><td style="background: #f0f0f044; color: rgb(63,191,0)">0.4384</td></tr>
+<tr><td>mt</td><td>craykh</td><td>jsb_fast</td><td class="link-cell"><LinkButton query='saved_outputs/music_transformer/craykh_nbpe/Train[jsb_chorales_fast]_Test[jsb_chorales_fast]_Val[jsb_chorales_fast].06.02.25/sample_output.mid' slide=24 /><a href='https://wandb.ai/federicowilliamson/pianogen/runs/505hiyob'>📈</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>25.3</td><td>702</td><td>1985</td><td>1.4409</td><td style="background: #f0f0f044; color: rgb(47,207,0)">0.3652</td></tr>
+<tr><td>mt</td><td>craykh</td><td>jsb_fast</td><td class="link-cell"><LinkButton query='saved_outputs/music_transformer/craykh_nbpe/Train[jsb_chorales_fast]_Test[jsb_chorales_fast]_Val[jsb_chorales_fast].06.02.25/sample_output.mid' slide=24 /><a href='https://wandb.ai/federicowilliamson/pianogen/runs/stc88ynm'>📈</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>25.3</td><td>766</td><td>1985</td><td>1.4202</td><td style="background: #f0f0f044; color: rgb(44,210,0)">0.3508</td></tr>
+<tr><td>mt</td><td>craykh</td><td>jsb+custom</td><td class="link-cell"><LinkButton query='saved_outputs/nan' slide=24 /><a href='https://wandb.ai/federicowilliamson/pianogen/runs/nvap2o44'>📈</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>25.3</td><td>2385</td><td>nan</td><td>1.2668</td><td style="background: #f0f0f044; color: rgb(18,236,0)">0.2365</td></tr>
+<tr><td>mt</td><td>craykh</td><td>jsb+custom</td><td class="link-cell"><LinkButton query='saved_outputs/music_transformer/craykh_nbpe/Train[jsb_chorales.custom]_Test[jsb_chorales.custom]_Val[jsb_chorales.custom].07.02.25/sample_output.mid' slide=24 /><a href='https://wandb.ai/federicowilliamson/pianogen/runs/u9qlrn05'>📈</a></td><td>2024</td><td>16</td><td>1024</td><td>16</td><td>25.3</td><td>6564</td><td>5961</td><td>1.2218</td><td style="background: #f0f0f044; color: rgb(10,244,0)">0.2003</td></tr>
+<tr><td>mt</td><td>jsb</td><td>jsb_fast</td><td class="link-cell"><LinkButton query='saved_outputs/music_transformer/jsb/Train[jsb_chorales_fast]_Test[jsb_chorales_fast]_Val[jsb_chorales_fast].09.02.25.a/sample_output.mid' slide=24 /><a href='https://wandb.ai/federicowilliamson/pianogen/runs/tnpgvr8q'>📈</a></td><td>2024</td><td>16</td><td>1024</td><td>16</td><td>25.3</td><td>1747</td><td>5960</td><td>1.2671</td><td style="background: #f0f0f044; color: rgb(18,236,0)">0.2368</td></tr>
+<tr><td>gpt2</td><td>jsb</td><td>jsb_fast</td><td class="link-cell"><LinkButton query='saved_outputs/gpt2/jsb/Train[jsb_chorales_fast]_Test[jsb_chorales_fast]_Val[jsb_chorales_fast]/sample_output.mid' slide=24 /><a href='https://wandb.ai/federicowilliamson/pianogen/runs/1cafolb4'>📈</a></td><td>1024</td><td>16</td><td>1024</td><td>16</td><td>202.6</td><td>2686</td><td>7396</td><td>1.4703</td><td style="background: #f0f0f044; color: rgb(51,203,0)">0.3854</td></tr>
+<tr><td>gpt2</td><td>jsb</td><td>jsb_fast</td><td class="link-cell"><LinkButton query='saved_outputs/gpt2/jsb/Train[jsb_chorales_fast]_Test[jsb_chorales_fast]_Val[jsb_chorales_fast].small/sample_output.mid' slide=24 /><a href='https://wandb.ai/federicowilliamson/pianogen/runs/l1wwlloh'>📈</a></td><td>512</td><td>8</td><td>512</td><td>5</td><td>16.0</td><td>467</td><td>7026</td><td>1.5544</td><td style="background: #f0f0f044; color: rgb(64,190,0)">0.4411</td></tr>
+<tr><td>mt</td><td>jsb</td><td>jsb_fast</td><td class="link-cell"><LinkButton query='saved_outputs/music_transformer/jsb/Train[jsb_chorales_fast]_Test[jsb_chorales_fast]_Val[jsb_chorales_fast].small/sample_output.mid' slide=24 /><a href='https://wandb.ai/federicowilliamson/pianogen/runs/yqtq5a2z'>📈</a></td><td>512</td><td>8</td><td>512</td><td>5</td><td>25.3</td><td>886</td><td>5508</td><td>1.4757</td><td style="background: #f0f0f044; color: rgb(52,202,0)">0.3891</td></tr>
 <tr>
 <td>mt†</td>
 <td>jsb</td>
 <td>jsb_fast</td>
-<td class="link-cell"><a href="slide-huang.html">📖</a></td>
+<td class="link-cell"><a href="https://arxiv.org/abs/1809.04281v3">📖</a></td>
 <td>512</td>
 <td>8</td>
 <td>512</td>
@@ -583,10 +593,16 @@ graph LR;
 
 <div class="footnote">
 † Valores de @huang2018music (Relative Transformer Baseline)
-
 </div>
 
 
+
+
+---
+---
+
+
+<ReactiveMidiPlayer/>
 
 <!-- Piano renderer:
 
