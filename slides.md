@@ -18,7 +18,7 @@ drawings:
 transition: slide-left
 mdc: true
 setup:
-  # import ReactiveMidiPlayer from 'components/ReactiveMidiPlayer.vue';
+  import ReactiveMidiPlayer from 'components/ReactiveMidiPlayer.vue';
   import MidiPlayer from 'components/MidiPlayer.vue';
   import LinkButton from 'components/LinkButton.vue';
   import 'setup/main.js';
