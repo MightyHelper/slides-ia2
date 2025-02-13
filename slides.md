@@ -22,48 +22,40 @@ setup:
   import MidiPlayer from 'components/MidiPlayer.vue';
   import LinkButton from 'components/LinkButton.vue';
   import 'setup/main.js';
+hideInToc: true
 ---
-
-
-<!-- Your slide content
-
-<!-- <MidiPlayer midi-path="saved_outputs/v2/v2-best.mid" /> -->
-<!-- <MidiPlayer midi-path="saved_outputs/v3/v3-try3-more-training.mid" /> -->
-
-<!-- # Hi -->
-
-<!-- For half size -->
-<!-- <MidiPlayer midi-path="your-midi-file.mid" height="35vh" /> -->
-<!-- --- -->
-<!-- --- -->
 
 
 # PianoGen: Generacion de Musica de Piano con IA
 Aplicando Transformers.
 
 <div class="abs-br m-6 text-xl">
-  <a href="https://github.com/MightyHelper/pianogen" target="_blank" class="slidev-icon-btn">
+  Federico Williamson <a href="https://github.com/MightyHelper/pianogen" target="_blank" class="slidev-icon-btn">
     <carbon:logo-github />
   </a>
 </div>
 
 
-<!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
--->
-
 ---
+title: Contenidos
+layout: image-left
+image: "public/images/cover.webp"
+hideInToc: true
 ---
 # Contenidos
+<Transform :scale=1>
 <Toc maxDepth=1 />
+</Transform>
 <!-- TODO: Split image layout -->
 
 ---
 transition: fade-out
-title: "Resumen: MIDI"
+title: "Qué es una canción?"
 ---
 
-# Resumen: MIDI
+# Qué es una canción?
+
+## MIDI
 
 <v-clicks>
 
@@ -142,9 +134,8 @@ title: "Resumen: MIDI"
 <!-- </center> -->
 
 ---
-title: Tokenización
 ---
-# Tokenización
+# Tokenización para música
 Cómo tokenizamos musica?
 <!-- TODO: Image piano roll + Arrow + token ids + question mark -->
 
@@ -168,12 +159,16 @@ Cómo tokenizamos musica?
 </v-clicks>
 
 ---
-title: TransformerModel Architecture
-layout: two-cols-header
-
+layout: center
 ---
 
-# V1: Primeros experimentos
+# Experimentos
+
+---
+layout: two-cols-header
+---
+
+## V1: Primeros experimentos
 <!-- TODO: Explain TFModel and it's shortcomings -->
 <!-- Explain that training did not give good results. No need to listen - show empty piano roll -->
 ::left::
@@ -224,7 +219,7 @@ graph TD;
 ---
 ---
 
-# V2: Mejor Configuración de REMI
+## V2: Mejor Configuración de REMI
 <!-- Explain the ehnanced tokenization. Why BPE is not good. -->
 <!-- Show result after 30 minutes of training -->
 <!-- saved_outputs/v2/v2-best.mid -->
@@ -243,7 +238,7 @@ graph TD;
 ---
 ---
 
-# V3: GPT-2
+## V3: GPT-2
 
 <!-- Explain why experiment with GPT-2 -->
 <!-- Talk about HF Trainer API -->
@@ -264,7 +259,7 @@ graph TD;
 ---
 ---
 
-# V4: Más Datos y augmentación
+## V4: Más Datos y augmentación
 <!-- Experimented with different datasets, multiple training resumes from checkpoints -->
 
 <!-- Show some of the results -->
@@ -299,7 +294,7 @@ graph TD;
 ---
 ---
 
-# Problemas de la Tokenizacion `REMI`
+## Problemas de la Tokenizacion `REMI`
 <v-clicks>
 
 - Token Embedding + Positional? Embedding
@@ -311,7 +306,7 @@ graph TD;
 
 ---
 ---
-# V5: Tokenización Continua
+## V5: Tokenización Continua
 
 Tomamos los eventos de midi y los traducimos al siguiente formato:
 ```yaml
@@ -356,7 +351,7 @@ flowchart TB;
 ---
 ---
 
-## V5: Arquitectura
+### V5: Arquitectura
 <Transform :scale=1>
 
 ```mermaid
@@ -413,7 +408,7 @@ graph LR;
 ---
 ---
 
-# V6: Tokenización CrayKH
+## V6: Tokenización CrayKH
 <v-clicks>
 
 - La complejidad del modelo anterior no funcionó
@@ -429,7 +424,7 @@ graph LR;
 ---
 ---
 
-# V7: MusicTransformer & Atención Relativa
+## V7: MusicTransformer & Atención Relativa
 
 <!-- Explain the MusicTransformer architecture -->
 
@@ -604,18 +599,37 @@ graph LR;
 
 <ReactiveMidiPlayer/>
 
-<!-- Piano renderer:
-
-Take a midi file, load it, show a piano roll.
-Allow playing the midi file using synths or (maybe?) real midi device.
-(?Allow pre-recording a piece on a real midi device to playback the audio?)
-
-Maybe also show tokenizations?
-
- -->
-
 <!--   ---
   layout: iframe
   url: "https://wandb.ai/federicowilliamson/pianogen/workspace/"
   --- -->
+
+---
+---
+
+# Conclusiones
+<v-clicks>
+
+- La **tokenización** es clave.  _Ajustes en vocabulario y eventos mejoraron la representación._
+- Se identificaron desafíos técnicos como **overfitting** y **contaminación** de datos. 
+- El **almacenamiento** es un factor crítico debido a la gran cantidad de modelos generados.
+- No existen **métricas** claras y **comparables** entre diferentes esquemas de tokenización.
+
+</v-clicks>
+
+# Trabajo Futuro
+<v-clicks>
+
+- Explorar modelos **multimodales** combinando partituras visuales o audio.
+- Ampliar experimentos de **augmentación** de datos.  
+- Incorporar **pedales y velocidad** para mejorar la calidad musical generada.
+
+</v-clicks>
+
+
+---
+---
+
+# Fin
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1822951494&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/mighty_helper" title="Mighty Helper" target="_blank" style="color: #cccccc; text-decoration: none;">Mighty Helper</a> · <a href="https://soundcloud.com/mighty_helper/random-improvs-yama00" title="Random Improvs - Yama00" target="_blank" style="color: #cccccc; text-decoration: none;">Random Improvs - Yama00</a></div>
 
